@@ -26,6 +26,8 @@ BROWSERS = {
                 # the messages go to the Odoo of the user, which Mozilla counts as collected
                 'data_collection_permissions': {'required': ['personalCommunications']},
             },
+            # the data collection key needs Firefox for Android 142; desktop keeps 140 (ESR)
+            'gecko_android': {'strict_min_version': '142.0'},
         },
     },
 }
