@@ -22,7 +22,7 @@ BROWSERS = {
         'background': {'scripts': ['origins.js', 'background.js']},
         'browser_specific_settings': {
             'gecko': {
-                'id': 'whatsapp-connector@odoomates.com', 'strict_min_version': '128.0',
+                'id': 'whatsapp-connector@odoomates.com', 'strict_min_version': '140.0',
                 # the messages go to the Odoo of the user, which Mozilla counts as collected
                 'data_collection_permissions': {'required': ['personalCommunications']},
             },
