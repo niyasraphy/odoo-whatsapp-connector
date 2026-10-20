@@ -78,4 +78,7 @@ A change to this policy is published here, with its date, before the version of 
 
 ## Contact
 
-Niyas Raphy, developer of the extension: niyasraphyk@gmail.com
+The extension is developed by Niyas Raphy and published by Odoo Mates on Firefox Add-ons.
+
+- Niyas Raphy, developer: niyasraphyk@gmail.com
+- Odoo Mates: odoomates@gmail.com
