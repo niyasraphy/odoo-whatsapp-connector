@@ -1,11 +1,13 @@
 # Odoo Mates WhatsApp Connector
 
-A browser extension for **Chrome** and **Firefox** that connects **WhatsApp Web** to your **Odoo 20**. Send
+A browser extension for **Chrome** and **Firefox** that connects **WhatsApp Web** to your **Odoo** (versions 15 to 20). Send
 WhatsApp messages and PDFs from Odoo while you stay on your Odoo page, and get the replies of your customers
 back in Odoo.
 
 It works with the free Odoo module **WhatsApp Connector Web** (`om_whatsapp_web`) by Odoo Mates, built on
 **WhatsApp Connector Base** (`om_whatsapp_base`).
+
+**Odoo versions:** 15, 16, 17, 18, 19 and 20, Community and Enterprise, with the module of the same version.
 
 - **Send from Odoo:** a quotation, an invoice, any document with its PDF. The message goes out from WhatsApp
   Web, open in another tab of the same browser.
@@ -24,7 +26,7 @@ It works with the free Odoo module **WhatsApp Connector Web** (`om_whatsapp_web`
 - **Chrome, Edge and other Chromium browsers:** Chrome Web Store (link coming soon).
 - **Firefox 128 or later:** Firefox Add-ons (link coming soon).
 
-Then, in Odoo 20, install **WhatsApp Connector Web** (`om_whatsapp_web`) from the Odoo Apps store.
+Then, in your Odoo, install **WhatsApp Connector Web** (`om_whatsapp_web`) from the Odoo Apps store, in the version of your Odoo.
 
 ## Set up
 
@@ -49,7 +51,7 @@ Odoo addresses you allowed. Groups, statuses and channels are not read. See [PRI
 | Permission | Why |
 | --- | --- |
 | `web.whatsapp.com` | send the messages of Odoo in WhatsApp Web, and read the replies |
-| Your Odoo address (asked when you allow it) | talk to the backend pages of that Odoo (`/odoo`), and no other site |
+| Your Odoo address (asked when you allow it) | talk to the backend pages of that Odoo (`/odoo`, or `/web` up to Odoo 17), and no other site |
 | `storage` | keep the allowed addresses, and the messages until Odoo takes them |
 | `scripting` | run its script in the Odoo pages you allowed |
 | `activeTab` | see the address of the page when you click the icon, to offer to allow it |

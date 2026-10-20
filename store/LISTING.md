@@ -14,7 +14,7 @@ Send WhatsApp messages and PDFs from Odoo through WhatsApp Web, and get the repl
 
 **Description:**
 
-Connects WhatsApp Web to your Odoo 20, with the free Odoo module WhatsApp Connector Web (om_whatsapp_web) by
+Connects WhatsApp Web to your Odoo (15 to 20, Community and Enterprise), with the free Odoo module WhatsApp Connector Web (om_whatsapp_web) by
 Odoo Mates.
 
 - Send from Odoo: a quotation, an invoice, any document with its PDF, from the WhatsApp button of Odoo. The
@@ -25,7 +25,7 @@ Odoo Mates.
 - Works only on the Odoo addresses you allow: open your Odoo, click the icon, Allow this Odoo.
 - One message at a time, each one sent by a user. No bulk sending.
 
-Needs: Odoo 20 with the module WhatsApp Connector Web (om_whatsapp_web), and WhatsApp Web open in the browser.
+Needs: Odoo 15 to 20 with the module WhatsApp Connector Web (om_whatsapp_web), and WhatsApp Web open in the browser.
 
 Not affiliated with WhatsApp or Meta. WhatsApp is a trademark of WhatsApp LLC.
 
@@ -72,7 +72,7 @@ WhatsApp Web, and bring the replies back to that Odoo.
   the manifest too (`browser_specific_settings.gecko.data_collection_permissions`); `build.py` adds it.
 - **Add-on id:** `whatsapp-connector@odoomates.com`. It is permanent once published: change it before the first
   upload if it should not carry odoomates.com.
-- **Notes for reviewers:** "Works with an Odoo 20 database running the module om_whatsapp_web. Open web.whatsapp.com
+- **Notes for reviewers:** "Works with an Odoo database (15 to 20) running the module om_whatsapp_web. Open web.whatsapp.com
   and an Odoo page, click the icon, Allow this Odoo, then send a WhatsApp from a contact in Odoo."
 
 ## Screenshots (1280x800)

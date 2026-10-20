@@ -32,7 +32,7 @@ to send to.
 ## Where it goes
 
 - **To your Odoo.** The messages, numbers, names, files and ticks are handed to the Odoo pages you allowed
-  (in the backend of Odoo, `/odoo`). Odoo keeps those of its contacts and of the chats about its documents,
+  (in the backend of Odoo: `/odoo`, or `/web` up to Odoo 17). Odoo keeps those of its contacts and of the chats about its documents,
   and drops the others, which the extension then deletes. What Odoo keeps is governed by the company that runs
   that Odoo.
 - **To WhatsApp.** The messages you send from Odoo are typed into WhatsApp Web and sent by it, as you would by
