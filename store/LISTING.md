@@ -1,10 +1,9 @@
 # Store listing: Odoo Mates WhatsApp Connector
 
 What to fill in on the Chrome Web Store and on Firefox Add-ons, for version 1.8.0. Publisher: Niyas Raphy's
-own developer accounts. Repository: under `niyasraphy` on GitHub.
+own developer accounts. Repository: https://github.com/niyasraphy/odoo-whatsapp-connector
 
-Privacy policy URL: the `PRIVACY.md` of the repository once it is pushed, e.g.
-`https://github.com/niyasraphy/<repository>/blob/main/PRIVACY.md`.
+Privacy policy URL: https://github.com/niyasraphy/odoo-whatsapp-connector/blob/main/PRIVACY.md
 
 ## Texts
 
