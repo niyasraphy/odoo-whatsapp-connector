@@ -18,6 +18,9 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 import assets
 from assets import BUBBLE, CHAT, DARK, GREEN, INK, MUTED, ODOO, TEAL, TICK, WHITE
 
+# the version of Odoo drawn in the titles: ODOO_VERSION=18 for another branch
+ODOO_VERSION = os.environ.get('ODOO_VERSION', '20')
+
 K = 2  # drawn twice as large, then reduced: smooth edges
 NOTO_EMOJI = '/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf'
 PAPER = (247, 251, 248)
@@ -772,7 +775,7 @@ def end_card(c, spec):
     c.text((SW / 2, 362), spec['end_sub'], 20, 'regular', MUTED, anchor='mm')
     total = sum(c.length(item, 16, 'bold') + 34 for item in spec['items']) + 10 * (len(spec['items']) - 1)
     chips(c, SW / 2 - total / 2, 404, spec['items'])
-    c.text((SW / 2, 500), 'ODOO MATES  ·  ODOO 20 COMMUNITY & ENTERPRISE', 14, 'bold', TEAL, anchor='mm')
+    c.text((SW / 2, 500), f'ODOO MATES  ·  ODOO {ODOO_VERSION} COMMUNITY & ENTERPRISE', 14, 'bold', TEAL, anchor='mm')
 
 
 # ------------------------------------------------------------
@@ -781,7 +784,7 @@ def end_card(c, spec):
 
 WEB = {
     'badge': 'badge_browser', 'short': 'WhatsApp Web',
-    'end_title': 'WhatsApp Web in Odoo 20', 'end_sub': 'Chat with your customers without leaving Odoo',
+    'end_title': f'WhatsApp Web in Odoo {ODOO_VERSION}', 'end_sub': 'Chat with your customers without leaving Odoo',
     'items': ['Free', 'No API', 'Replies & reactions', 'Chrome & Firefox'],
 }
 
@@ -868,7 +871,7 @@ def film_web():
 
 BASE = {
     'badge': 'badge_lines', 'short': 'WhatsApp',
-    'end_title': 'WhatsApp for Odoo 20', 'end_sub': 'Templates, conversations and a log on every document',
+    'end_title': f'WhatsApp for Odoo {ODOO_VERSION}', 'end_sub': 'Templates, conversations and a log on every document',
     'items': ['Click to Chat', 'WhatsApp Web', 'Meta Cloud API', 'WhatsApp QR'],
 }
 
@@ -963,7 +966,7 @@ def film_base():
 
 META = {
     'badge': 'badge_cloud', 'short': 'WhatsApp Cloud API',
-    'end_title': 'WhatsApp Cloud API in Odoo 20', 'end_sub': 'The official API of Meta, from the server',
+    'end_title': f'WhatsApp Cloud API in Odoo {ODOO_VERSION}', 'end_sub': 'The official API of Meta, from the server',
     'items': ['Official API', 'Automation', 'Approved templates', 'Two-way chat'],
 }
 
@@ -1112,7 +1115,7 @@ def film_meta():
 
 DEVICE = {
     'badge': 'badge_qr', 'short': 'WhatsApp QR',
-    'end_title': 'WhatsApp QR in Odoo 20', 'end_sub': 'Scan once, then Odoo sends and receives from the server',
+    'end_title': f'WhatsApp QR in Odoo {ODOO_VERSION}', 'end_sub': 'Scan once, then Odoo sends and receives from the server',
     'items': ['Scan & go', 'From the server', 'Automation', 'Two-way chat'],
 }
 INVOICE_TEXT = 'Hello Wood Corner, your invoice INV/2026/00042 is attached. Thank you!'
@@ -1165,7 +1168,7 @@ BW, BH = 1152, 648
 
 BANNERS = {
     'om_whatsapp_base': {
-        'spec': BASE, 'title': ['WhatsApp for', 'Odoo 20'],
+        'spec': BASE, 'title': ['WhatsApp for', f'Odoo {ODOO_VERSION}'],
         'subtitle': ['Templates, conversations in Discuss', 'and a log on every document'],
         'items': ['Free', 'Templates', 'Discuss', 'Any document'],
         'steps': [
@@ -1180,7 +1183,7 @@ BANNERS = {
         'toast': 'Logged on S00042.',
     },
     'om_whatsapp_web': {
-        'spec': WEB, 'title': ['WhatsApp Web', 'in Odoo 20'],
+        'spec': WEB, 'title': ['WhatsApp Web', f'in Odoo {ODOO_VERSION}'],
         'subtitle': ['Chat with your customers from Odoo:', 'replies, reactions, PDFs, no API'],
         'items': ['Free', 'Chat & react', 'No API', 'Chrome & Firefox'],
         'steps': [
@@ -1198,7 +1201,7 @@ BANNERS = {
         'toast': 'Order confirmed, WhatsApp sent.',
     },
     'om_whatsapp': {
-        'spec': META, 'title': ['WhatsApp Cloud API', 'in Odoo 20'],
+        'spec': META, 'title': ['WhatsApp Cloud API', f'in Odoo {ODOO_VERSION}'],
         'subtitle': ['The official API of Meta: templates, PDFs,', 'automation and replies, from the server'],
         'items': ['Official API', 'Automation', 'Templates', 'Two-way chat'],
         'steps': [
@@ -1212,7 +1215,7 @@ BANNERS = {
         'toast': 'Sent from the server at 02:14.',
     },
     'om_whatsapp_device': {
-        'spec': DEVICE, 'title': ['WhatsApp QR', 'in Odoo 20'],
+        'spec': DEVICE, 'title': ['WhatsApp QR', f'in Odoo {ODOO_VERSION}'],
         'subtitle': ['Scan a QR code, and send from the server:', 'PDFs, automation and replies, no browser open'],
         'items': ['Scan & go', 'From the server', 'Automation', 'Two-way chat'],
         'steps': [
@@ -1235,7 +1238,7 @@ def banner_frame(spec, msgs, show_toast):
     c.rect([BW * 0.62, BH - 8, BW, BH], fill=GREEN)
     c.paste(module_icon(spec['spec']['badge'], 92), (60, 70))
     c.text((166, 88), 'ODOO MATES', 18, 'black', TEAL)
-    c.text((166, 114), 'ODOO 20 COMMUNITY & ENTERPRISE', 13, 'bold', MUTED)
+    c.text((166, 114), f'ODOO {ODOO_VERSION} COMMUNITY & ENTERPRISE', 13, 'bold', MUTED)
     y = 200
     for line in spec['title']:
         c.text((60, y), line, 54, 'black', DARK)

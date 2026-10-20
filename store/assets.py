@@ -16,7 +16,8 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 EXTENSION = os.path.dirname(HERE)
-ODOOAPPS = os.path.join(os.path.dirname(EXTENSION), 'odooapps')
+# the odooapps checkout to draw into: ODOOAPPS=/path/to/18.0/odooapps for another version
+ODOOAPPS = os.environ.get('ODOOAPPS') or os.path.join(os.path.dirname(EXTENSION), 'odooapps')
 LATO = os.path.expanduser('~/odoo/20.0/odoo/odoo/addons/web/static/fonts/lato')
 
 GREEN = (37, 211, 102)
