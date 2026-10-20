@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Odoo Mates WhatsApp Connector</title>
+    <link rel="stylesheet" href="options.css">
+    <style>
+        body { width: 340px; }
+        main { padding: 16px; }
+        h1 { font-size: 16px; margin: 0 0 12px; }
+        h1 img { width: 24px; height: 24px; }
+        .origin { font-weight: 600; overflow-wrap: anywhere; }
+        .ok { color: var(--accent); font-weight: 600; }
+        .links { display: flex; gap: 16px; margin-top: 14px; font-size: 13px; }
+        button { width: 100%; margin-top: 10px; }
+        .reader { margin: 12px 0 0; font-size: 13px; }
+        .reader.ok::before { content: "● "; color: var(--accent); }
+        .reader.error { color: inherit; }
+        .reader.error::before { content: "● "; color: #c0392b; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1><img src="icons/icon-48.png" alt="">Odoo Mates WhatsApp Connector</h1>
+        <div id="state"></div>
+        <p id="error" class="error" hidden></p>
+        <p id="reader" class="reader muted" hidden></p>
+        <div class="links">
+            <a href="https://web.whatsapp.com/" target="_blank" rel="noopener">Open WhatsApp Web</a>
+            <a href="#" id="options">Allowed addresses</a>
+        </div>
+    </main>
+    <script src="origins.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

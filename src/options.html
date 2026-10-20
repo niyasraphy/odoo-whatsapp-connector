@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Odoo Mates WhatsApp Connector</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <main>
+        <h1><img src="icons/icon-48.png" alt="">Odoo Mates WhatsApp Connector</h1>
+        <p>Add the address of your Odoo. Its pages can then send messages through WhatsApp Web, open in
+            another tab of this browser.</p>
+        <form id="add">
+            <input id="address" type="url" required placeholder="https://mycompany.odoo.com" autocomplete="url">
+            <button type="submit">Allow</button>
+        </form>
+        <p id="error" class="error" hidden></p>
+        <h2>Allowed Odoo addresses</h2>
+        <ul id="origins"></ul>
+        <p id="empty" class="muted">No Odoo address yet.</p>
+        <h2>Before sending</h2>
+        <ol>
+            <li>Install the WhatsApp Connector Web module (om_whatsapp_web) in Odoo, and set the provider of
+                your WhatsApp account to WhatsApp Web.</li>
+            <li>Open <a href="https://web.whatsapp.com/" target="_blank" rel="noopener">web.whatsapp.com</a> once
+                and link it to your phone. It may then stay in a background tab.</li>
+        </ol>
+        <p class="muted">The extension sends only the messages you send from Odoo, one at a time. WhatsApp does
+            not allow automated or bulk sending from WhatsApp Web.</p>
+        <p class="muted">While WhatsApp Web is open, the extension also reads its messages for your Odoo, the
+            WhatsApp account of which has the number linked in WhatsApp Web. Odoo keeps those of its contacts and of
+            the chats about its documents, and the others when the account keeps unknown numbers; the rest are
+            dropped in this browser and never sent anywhere. Groups, status and channels are not read.</p>
+    </main>
+    <script src="origins.js"></script>
+    <script src="options.js"></script>
+</body>
+</html>
