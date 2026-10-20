@@ -150,8 +150,10 @@ def make_icon(badge=None, size=600, shadow=True):
     send_arrow(d, cx + tile * 0.01, cy, tile * 0.27, WHITE)
 
     if badge:
-        bc = (t1 - tile * 0.04, t1 - tile * 0.04)
-        br = tile * 0.19
+        # with a shadow the badge overlaps the corner; full size, it stays inside the tile
+        inset, br = (0.04, 0.19) if shadow else (0.21, 0.165)
+        bc = (t1 - tile * inset, t1 - tile * inset)
+        br = tile * br
         ring = tile * 0.035
         d.ellipse([bc[0] - br - ring, bc[1] - br - ring, bc[0] + br + ring, bc[1] + br + ring], fill=WHITE)
         d.ellipse([bc[0] - br, bc[1] - br, bc[0] + br, bc[1] + br], fill=ODOO)
@@ -173,7 +175,8 @@ def main():
         if module not in wanted:
             continue
         target = os.path.join(ODOOAPPS, module, 'static', 'description')
-        make_icon(badge).save(os.path.join(target, 'icon.png'))
+        # full size: the app icon of the home screen of Odoo, as large as the other apps
+        make_icon(badge, shadow=False).save(os.path.join(target, 'icon.png'))
         print(module, 'icon.png')
     if 'extension' not in wanted:
         return
