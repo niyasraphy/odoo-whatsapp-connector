@@ -33,7 +33,8 @@
             }
             await sleep(interval);
         }
-        return null;
+        // a tab in the background gets its timers late (once a minute after a while): one more look
+        return check() || null;
     }
 
     // While it looks the number up, WhatsApp shows a "Starting chat" popup,
@@ -117,6 +118,9 @@
         code = "no-text";
     }
 
+    /** The message box did not empty after Send: the message may have gone all the same. */
+    class NotCleared extends Error {}
+
     async function sendText(body, nothingSent) {
         if (!(await fillComposer(body))) {
             if (nothingSent) {
@@ -137,7 +141,7 @@
                 console.warn("[Odoo Mates WhatsApp Connector] send button not found", describePage());
                 throw new Error("The send button of WhatsApp Web was not found.");
             }
-            throw new Error("WhatsApp Web did not send the text.");
+            throw new NotCleared("WhatsApp Web did not send the text.");
         }
     }
 
@@ -377,7 +381,14 @@
         // with files, the text is their caption; without caption box, it follows them
         const captioned = attachments.length ? await sendFiles(attachments, message.body) : false;
         if (message.body && !captioned) {
-            await sendText(message.body, !attachments.length);
+            try {
+                await sendText(message.body, !attachments.length);
+            } catch (error) {
+                // the box looked full, but the store of WhatsApp may have the message: then it went
+                if (!(error instanceof NotCleared) || !(await sentWithText(message, since, new Set(exclude)))) {
+                    throw error;
+                }
+            }
         }
         const ids = await sentIds(message, since, new Set(exclude));
         await waitTransmitted(ids);
@@ -531,6 +542,22 @@
      * reader does not work. The ids of earlier sends (``exclude``) are not
      * theirs; the one with the text of the message comes first.
      */
+    /** Whether a message with the text of ``message`` went to its number since ``since``, as the reader saw it. */
+    async function sentWithText(message, since, exclude) {
+        const text = (message.body || "").trim();
+        for (let i = 0; i < 6; i++) {
+            const answer = await toReader("sent", { phone: message.phone, since }, 2000).catch(() => null);
+            if (!answer) {
+                return false;
+            }
+            if ((answer.messages || []).some((sent) => !exclude.has(sent.id) && sent.text.trim() === text)) {
+                return true;
+            }
+            await sleep(500);
+        }
+        return false;
+    }
+
     async function sentIds(message, since, exclude) {
         const text = (message.body || "").trim();
         for (let i = 0; i < 6; i++) {

@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Odoo Mates WhatsApp Connector",
     "short_name": "OM WhatsApp Connector",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "description": "Send messages and PDFs from your Odoo through WhatsApp Web, open in another tab, and get the replies of your contacts in Odoo.",
     "icons": {
         "16": "icons/icon-16.png",
