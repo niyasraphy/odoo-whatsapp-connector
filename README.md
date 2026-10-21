@@ -23,7 +23,7 @@ It works with the free Odoo module **WhatsApp Connector Web** (`om_whatsapp_web`
 
 ## Install
 
-- **Chrome, Edge and other Chromium browsers:** Chrome Web Store (link coming soon).
+- **Chrome, Edge and other Chromium browsers:** [Chrome Web Store](https://chromewebstore.google.com/detail/odoo-mates-whatsapp-conne/kebcoplomgfmdjofjjlhnobldfechgmi).
 - **Firefox 140 or later:** Firefox Add-ons (link coming soon).
 
 Then, in your Odoo, install **WhatsApp Connector Web** (`om_whatsapp_web`) from the Odoo Apps store, in the version of your Odoo.
