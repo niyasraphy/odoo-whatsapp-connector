@@ -22,6 +22,10 @@ const OM_SELECTORS = {
     // the send button of the preview of a file; only one that shows up after the
     // file was given counts, so loose selectors are fine here
     mediaSendButton: [
+        // the preview may no longer be a dialog, with its Send in the bottom bar
+        '[role="button"][aria-label="Send" i]',
+        '[role="button"][aria-label*="send" i]',
+        '[data-icon="wds-ic-send-filled"]',
         'div[role="dialog"] [data-icon*="send"]',
         '[data-icon="wds-ic-send-filled"]:not(footer *)',
         '[data-icon*="send"]:not(footer *)',
@@ -31,6 +35,7 @@ const OM_SELECTORS = {
     captionBox: [
         'div[role="dialog"] div[contenteditable="true"]',
         'div[contenteditable="true"][aria-label*="caption" i]',
+        'div[contenteditable="true"][aria-placeholder*="message" i]:not(footer *)',
         'div[contenteditable="true"]:not(footer *)',
     ],
     // the + of the message box, which opens the menu with Document
