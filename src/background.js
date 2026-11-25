@@ -81,7 +81,7 @@ function enqueue(job) {
 }
 
 function checkMessage(message) {
-    if (!/^\d{6,15}$/.test(message?.phone || "")) {
+    if (!/^[\d\-]{6,30}$/.test(message?.phone || "")) {
         throw new Error("The number is not valid.");
     }
     if (typeof message.body !== "string") {
@@ -243,7 +243,7 @@ async function deliver(message) {
 
 /** React in WhatsApp Web to a message: {phone, whatsapp_id, emoji}, an empty emoji takes it back. */
 async function react(reaction) {
-    if (!/^\d{6,15}$/.test(reaction?.phone || "") || typeof reaction.whatsapp_id !== "string" || !reaction.whatsapp_id) {
+    if (!/^[\d\-]{6,30}$/.test(reaction?.phone || "") || typeof reaction.whatsapp_id !== "string" || !reaction.whatsapp_id) {
         return { ok: false, error: "The reaction is not valid." };
     }
     if (typeof reaction.emoji !== "string" || reaction.emoji.length > 32) {
@@ -283,7 +283,7 @@ async function status() {
 /** Mark messages read or played in WhatsApp Web: {phone, ids, kind: read | played}. */
 async function receipt(request) {
     const { phone, ids, kind } = request || {};
-    if (!/^\d{6,15}$/.test(phone || "") || !Array.isArray(ids) || !ids.length || !["read", "played"].includes(kind)) {
+    if (!/^[\d\-]{6,30}$/.test(phone || "") || !Array.isArray(ids) || !ids.length || !["read", "played"].includes(kind)) {
         return { ok: false, error: "The receipt is not valid." };
     }
     const [tab] = await api.tabs.query({ url: `${WHATSAPP}*` });
@@ -299,7 +299,7 @@ async function receipt(request) {
 
 /** The profile picture of ``phone``, read in WhatsApp Web. */
 async function picture(phone) {
-    if (!/^\d{6,15}$/.test(phone || "")) {
+    if (!/^[\d\-]{6,30}$/.test(phone || "")) {
         return { ok: false, error: "The number is not valid." };
     }
     const [tab] = await api.tabs.query({ url: `${WHATSAPP}*` });
