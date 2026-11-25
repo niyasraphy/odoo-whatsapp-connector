@@ -75,7 +75,7 @@
         return Msg.getModelsArray?.() || Msg.models || Msg._models || [];
     }
 
-    /** Digits of the phone number of a chat with one person, else null:
+    /** Digits of the phone number of a chat with one person, or group ID:
      * groups, status, channels. Chats addressed by a hidden id (@lid) are
      * looked up in the contacts. */
     function phoneOf(wid) {
@@ -86,7 +86,7 @@
         if (!wid) {
             return null;
         }
-        if (wid.server === "c.us" || wid.server === "s.whatsapp.net") {
+        if (wid.server === "c.us" || wid.server === "s.whatsapp.net" || wid.server === "g.us") {
             return wid.user || null;
         }
         if (wid.server !== "lid") {
@@ -112,10 +112,40 @@
 
     function profileName(msg) {
         try {
+            const senderWid = msg.author || msg.id?.participant;
+            if (senderWid) {
+                const senderContact = collections.Contact?.get?.(senderWid);
+                const sName = senderContact?.pushname || senderContact?.name || msg.notifyName;
+                const sPhone = phoneOf(senderWid);
+                if (sName && sPhone) {
+                    return `${sName} (+${sPhone})`;
+                }
+                if (sName) {
+                    return sName;
+                }
+                if (sPhone) {
+                    return `+${sPhone}`;
+                }
+            }
             return msg.notifyName || collections.Contact?.get?.(msg.id.remote)?.pushname || null;
         } catch {
             return null;
         }
+    }
+
+    function chatTitleOf(wid) {
+        try {
+            if (!wid) return null;
+            const chat = collections.Chat?.get?.(wid) || (collections.Chat?.getModelsArray?.() || collections.Chat?.models || []).find((c) => c.id?._serialized === wid._serialized || c.id?.user === wid.user);
+            if (chat?.formattedTitle) return chat.formattedTitle;
+            if (chat?.name) return chat.name;
+            const contact = collections.Contact?.get?.(wid);
+            if (contact?.formattedTitle) return contact.formattedTitle;
+            if (contact?.name) return contact.name;
+        } catch {
+            // fallback
+        }
+        return null;
     }
 
     /** A reaction to a message of a chat with one person: its emoji, empty when taken back. */
@@ -152,6 +182,10 @@
         if (!phone) {
             return null;
         }
+        const isGroup = key.remote?.server === "g.us" || (typeof key.remote === "string" && key.remote.includes("@g.us"));
+        const sender = isGroup ? profileName(msg) : null;
+        const groupTitle = isGroup ? chatTitleOf(key.remote) : null;
+
         const item = {
             kind: "message",
             id: key.id,
@@ -161,8 +195,10 @@
             t: msg.t || 0,
             body: "",
             quoted_id: msg.quotedStanzaID || null,
-            // the name the contact gave themselves in WhatsApp
-            name: (!key.fromMe && profileName(msg)) || null,
+            name: (isGroup ? groupTitle : (!key.fromMe && profileName(msg))) || null,
+            is_group: Boolean(isGroup),
+            sender_name: sender || null,
+            group_name: groupTitle || null,
         };
         if (msg.type === "reaction") {
             return null; // see watchReactions
@@ -181,6 +217,9 @@
             item.body = msg.caption || "";
         } else {
             return null; // waiting for the message, call, system message...
+        }
+        if (isGroup && sender && !key.fromMe && item.body) {
+            item.body = `[${sender}]: ${item.body}`;
         }
         return item;
     }
@@ -331,7 +370,7 @@
     /** The chat of a number WhatsApp Web already has, or null. */
     function knownChat(phone) {
         return (collections.Chat?.getModelsArray?.() || collections.Chat?.models || []).find(
-            (chat) => !chat.isGroup && phoneOf(chat.id) === phone
+            (chat) => phoneOf(chat.id) === phone
         ) || null;
     }
 
